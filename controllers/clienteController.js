@@ -1,12 +1,6 @@
-var clientes = [];
+let clientes = [];
 
 exports.criarClientes = (req, res) => {
-    const id = req.body.id;
-    const nome = req.body.nome;
-    const idade = req.body.idade;
-    const cidade = req.body.cidade;
-    const pedidos = req.body.pedidos || '';
-
     clientes.push(req.body);
     res.status(201).json({ mensagem: 'Cliente adicionado com sucesso.' });
 };
@@ -17,15 +11,15 @@ exports.listarClientes = (req, res) => {
 
 exports.obterClienteId = (req, res) => {
     const id = parseInt(req.params.id);
-    const clientes = clientes.find(c => c.id === id);
-    if (clientes) {
-        res.json(clientes);
+    const cliente = clientes.find(c => c.id === id);
+    if (cliente) {
+        res.json(cliente);
     } else {
         res.status(400).json({ mensagem: 'Cliente não encontrado.' });
     }
 };
 
-exports.pedidoPorId = (res, res) => {
+exports.pedidoPorId = (req, res) => {
     const id = parseInt(req.params.id);
     const clientes = clientes.find(c => c.id === id);
     if (!clientes) {
@@ -54,13 +48,13 @@ exports.atualizarCliente = (req, res) => {
 var pedidos = [];
 exports.adicionarPedido = (req, res) => {
     const id = parseInt(req.params.id);
-    const clientes = clientes.find(c => c.id === id);
+    const cliente = clientes.find(c => c.id === id);
     if (!clientes) {
         return res.status(400).json({ mensagem: 'Cliente não encontrado.' });
     };
 
-    pedidos.push(req.body);
-    res.json({ mensagem: `Pedido adicionado ao cliente ${clientes.nome}` });
+    cliente.pedidos.push(req.body);
+    res.json({ mensagem: `Pedido adicionado ao cliente ${cliente.nome}` });
 };
 
 exports.obterClientesCidade = (req, res) => {
