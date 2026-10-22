@@ -9,7 +9,7 @@ router.get('/clientes/:id', clienteController.obterClienteId);
 router.get('/clientes/:id/pedidos', clienteController.pedidoPorId);
 router.put('/clientes/:id', clienteController.atualizarCliente);
 router.post('/clientes/:id/pedidos', clienteController.adicionarPedido);
-router.get('/clientes/cidade/:cidade', clienteController.obterClienteCidade);
+router.get('/clientes/cidade/:cidade', clienteController.obterClientesCidade);
 router.delete('/clientes/:id', clienteController.removerCliente);
 
 module.exports = router;

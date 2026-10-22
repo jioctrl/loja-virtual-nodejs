@@ -42,9 +42,7 @@ exports.atualizarCliente = (req, res) => {
         return res.status(400).json({ mensagem: 'Cliente não encontrado.'});
     };
 
-    const nome = req.body;
-    const idade = req.body;
-    const cidade = req.body;
+    const { nome, idade, cidade } = req.body;
 
     clientes.nome = nome;
     clientes.idade = idade;
@@ -53,3 +51,36 @@ exports.atualizarCliente = (req, res) => {
     res.json({ mensagem: 'Dados atualizados.'});
 };
 
+var pedidos = [];
+exports.adicionarPedido = (req, res) => {
+    const id = parseInt(req.params.id);
+    const clientes = clientes.find(c => c.id === id);
+    if (!clientes) {
+        return res.status(400).json({ mensagem: 'Cliente não encontrado.' });
+    };
+
+    pedidos.push(req.body);
+    res.json({ mensagem: `Pedido adicionado ao cliente ${clientes.nome}` });
+};
+
+exports.obterClientesCidade = (req, res) => {
+    const cidade = req.params.cidade;
+
+    const clientesCidade = clientes.filter(c => c.cidade === cidade);
+
+    res.json(clientesCidade);
+};
+
+exports.removerCliente = (req, res) => {
+    const id = parseInt(req.params.id);
+    
+    const indice = clientes.findIndex(c => c.id === id);
+
+    if (indice === -1) {
+        return res.status(400).json({ mensagem: 'Cliente não existe.' });
+    };
+
+    clientes.splice(indice, 1);
+
+    res.json( {mensagem: 'Cliente removido com sucesso.' });
+};
