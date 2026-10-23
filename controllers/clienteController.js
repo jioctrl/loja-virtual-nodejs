@@ -38,9 +38,9 @@ exports.atualizarCliente = (req, res) => {
 
     const { nome, idade, cidade } = req.body;
 
-    clientes.nome = nome;
-    clientes.idade = idade;
-    clientes.cidade = cidade;
+    cliente.nome = nome;
+    cliente.idade = idade;
+    cliente.cidade = cidade;
 
     res.json({ mensagem: 'Dados atualizados.'});
 };
