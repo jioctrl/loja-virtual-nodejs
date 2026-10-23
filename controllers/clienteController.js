@@ -11,7 +11,7 @@ exports.listarClientes = (req, res) => {
 
 exports.obterClienteId = (req, res) => {
     const id = parseInt(req.params.id);
-    const cliente = clientes.find(c => c.id === id);
+    const cliente = clientes.find(c => Number(c.id) === id);
     if (cliente) {
         res.json(cliente);
     } else {
@@ -21,18 +21,18 @@ exports.obterClienteId = (req, res) => {
 
 exports.pedidoPorId = (req, res) => {
     const id = parseInt(req.params.id);
-    const clientes = clientes.find(c => c.id === id);
-    if (!clientes) {
+    const cliente = clientes.find(c => Number(c.id) === id);
+    if (!cliente) {
         return res.status(400).json({ mensagem: 'Cliente não encontrado.'});
     } else {
-        res.json(clientes.pedidos);
+        res.json(cliente.pedidos);
     }
 };
 
 exports.atualizarCliente = (req, res) => {
     const id = parseInt(req.params.id);
-    const clientes = clientes.find(c => c.id === id);
-    if (!clientes) {
+    const cliente = clientes.find(c => Number(c.id) === id);
+    if (!cliente) {
         return res.status(400).json({ mensagem: 'Cliente não encontrado.'});
     };
 
@@ -48,7 +48,7 @@ exports.atualizarCliente = (req, res) => {
 var pedidos = [];
 exports.adicionarPedido = (req, res) => {
     const id = parseInt(req.params.id);
-    const cliente = clientes.find(c => c.id === id);
+    const cliente = clientes.find(c => Number(c.id) === id);
     if (!clientes) {
         return res.status(400).json({ mensagem: 'Cliente não encontrado.' });
     };
@@ -68,7 +68,7 @@ exports.obterClientesCidade = (req, res) => {
 exports.removerCliente = (req, res) => {
     const id = parseInt(req.params.id);
     
-    const indice = clientes.findIndex(c => c.id === id);
+    const indice = clientes.findIndex(c => Number(c.id) === id);
 
     if (indice === -1) {
         return res.status(400).json({ mensagem: 'Cliente não existe.' });
